@@ -1,0 +1,12 @@
+name: MoveInventory
+main: me.babarix.MoveInventory.MoveInventory
+version: 0.5
+author: Babarix
+database: false
+description: Moves Inventory between Chest and Player.
+
+commands:
+   mi:
+      description: Moves Inventory between Chest and Player.
+      usage: /mi [tc|tp|v]
+
