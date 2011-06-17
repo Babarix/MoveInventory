@@ -4,7 +4,7 @@ version: 0.5
 author: Babarix
 database: false
 description: Moves Inventory between Chest and Player.
-
+depend: [LWC]
 commands:
    mi:
       description: Moves Inventory between Chest and Player.
