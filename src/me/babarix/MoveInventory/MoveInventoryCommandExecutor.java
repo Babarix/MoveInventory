@@ -1,7 +1,7 @@
 package me.babarix.MoveInventory;
 
 import java.util.HashMap;
-
+import java.util.HashSet;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
@@ -28,8 +28,14 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		Player player;
 		Block tblock;
 		Chest chest1, chest2;
-
 		Protection protection;
+		byte[] ini = {0, 6, 27, 28, 37, 38, 39, 40, 50, 53, 55, 59, 63, 65, 66,
+				68, 69, 70, 72, 75, 76, 77, 78, 90, 92, 93, 94, 96 };
+		
+		HashSet<Byte> trans = new HashSet<Byte>();
+		for (byte b : ini) {
+			trans.add(b);
+		}
 
 		if (label.equalsIgnoreCase("mi")) {
 
@@ -41,7 +47,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 			if (args.length < 1) {
 				help(player);
 			}
-			tblock = player.getTargetBlock(null, 30);
+			tblock = player.getTargetBlock(trans, 119);
 			if (tblock.getTypeId() != 54 || tblock == null) {
 				player.sendMessage("Your Target is no chest.");
 				return true;
