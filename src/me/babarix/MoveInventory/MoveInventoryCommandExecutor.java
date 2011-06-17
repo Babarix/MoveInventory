@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import com.griefcraft.model.Protection;
+
 public class MoveInventoryCommandExecutor implements CommandExecutor {
 
 	private final MoveInventory plugin;
@@ -27,6 +29,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		Chest chest;
 		Inventory ichest, iplayer;
 		HashMap<Integer, ItemStack> leftovers;
+		Protection protection;
 
 		if (label.equalsIgnoreCase("mi")) {
 
@@ -43,7 +46,14 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 				player.sendMessage("Your Target is no chest.");
 				return true;
 			}
-
+			
+			protection = plugin.lwc.findProtection(tblock);		
+			if(plugin.lwc.canAccessProtection(player, protection) == false)
+			{
+				player.sendMessage("This chest is locked by sombody else.");
+				return true;
+			}
+			
 			chest = (Chest) tblock.getState();
 			ichest = chest.getInventory();
 			iplayer = player.getInventory();

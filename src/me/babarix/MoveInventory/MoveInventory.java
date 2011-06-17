@@ -5,13 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.griefcraft.lwc.LWC;
+import com.griefcraft.lwc.LWCPlugin;
 
 public class MoveInventory extends JavaPlugin {
 	private static Logger log = Logger.getLogger("Minecraft");
 	private String path = "plugins" + File.separator + "MoveInventory";
 	protected Map<String, Boolean> verbose;
+	protected LWC lwc = null;
 	PluginManager pm;
 
 	@SuppressWarnings("unchecked")
@@ -28,6 +33,14 @@ public class MoveInventory extends JavaPlugin {
 			log.info("[MoveInventory] Data not found using default.");
 		}
 		getCommand("mi").setExecutor(new MoveInventoryCommandExecutor(this));
+		
+		
+
+		Plugin lwcPlugin = getServer().getPluginManager().getPlugin("LWC");
+		if(lwcPlugin != null) {
+		    lwc = ((LWCPlugin) lwcPlugin).getLWC();
+		}
+		
 		log.info("[MoveInventory] version [0.5] enabled");
 	}
 
