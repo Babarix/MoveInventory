@@ -14,11 +14,10 @@ import org.bukkit.inventory.ItemStack;
 public class MoveInventoryCommandExecutor implements CommandExecutor {
 
 	private final MoveInventory plugin;
-	
 
 	public MoveInventoryCommandExecutor(MoveInventory plugin) {
 		this.plugin = plugin;
-			}
+	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command command,
@@ -34,9 +33,11 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 			if (sender instanceof Player) {
 				player = (Player) sender;
 			} else {
-				return false;
+				return true;
 			}
-
+			if (args.length < 1) {
+				help(player);
+			}
 			tblock = player.getTargetBlock(null, 30);
 			if (tblock.getTypeId() != 54 || tblock == null) {
 				player.sendMessage("Your Target is no chest.");
@@ -46,9 +47,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 			chest = (Chest) tblock.getState();
 			ichest = chest.getInventory();
 			iplayer = player.getInventory();
-			if (args.length < 1) {
-				help(player);
-			} else if (args[0].equalsIgnoreCase("tc")) {
+			if (args[0].equalsIgnoreCase("tc")) {
 				if (ichest.firstEmpty() == -1) {
 					player.sendMessage("The Target is alredy full.");
 					return true;
@@ -97,7 +96,6 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 				return true;
 			} else if (args[0].equalsIgnoreCase("v")) {
 				toggleVerbose(player);
-
 			} else {
 				help(player);
 				return true;
