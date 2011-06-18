@@ -1,6 +1,6 @@
 name: MoveInventory
 main: me.babarix.MoveInventory.MoveInventory
-version: 0.5
+version: 0.5.2
 author: Babarix
 database: false
 description: Moves Inventory between Chest and Player.
