@@ -1,3 +1,22 @@
+Move Inventory
+
+Version: 0.5.3
+
+This Plugin let you move your whole inventory into a chest and the other way round.
+I made it because i needed to move a lot of materials from my mine to my storage.
+Now instead of 1 minute of klickin i just need to tip 5 Letters.
+
+Features:
+-Move your whole inventory into a chest
+-Move the whole chest inventory into your inventory
+-Toogable move report
+
+Usage:
+-/mi tc: Moves your inventory into target chest
+-/mi tp: Moves target chests inventory into your inventory		
+-/mi v: Turns move message on/off	
+	
+
 TO-DO:
 -Permission Support
 -drop Inventory

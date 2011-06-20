@@ -49,7 +49,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 			}
 			tblock = player.getTargetBlock(trans, 119);
 			if (tblock.getTypeId() != 54 || tblock == null) {
-				player.sendMessage("Your Target is no chest.");
+				player.sendMessage("Your target is no chest.");
 				return true;
 			}
 
@@ -158,7 +158,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		ichest = chest.getInventory();
 		iplayer = player.getInventory();
 		if (ichest.firstEmpty() == -1 && fullFlag) {
-			player.sendMessage("The Chest is alredy full.");
+			player.sendMessage("The chest is full.");
 			return true;
 		}
 		for (ItemStack item : iplayer.getContents()) {
@@ -186,7 +186,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		ichest = chest.getInventory();
 		iplayer = player.getInventory();
 		if (iplayer.firstEmpty() == -1 && fullFlag) {
-			player.sendMessage("Your Inventory is full.");
+			player.sendMessage("Your inventory is full.");
 			return true;
 		}
 
