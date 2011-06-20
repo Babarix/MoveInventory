@@ -39,9 +39,10 @@ public class MoveInventory extends JavaPlugin {
 		Plugin lwcPlugin = getServer().getPluginManager().getPlugin("LWC");
 		if(lwcPlugin != null) {
 		    lwc = ((LWCPlugin) lwcPlugin).getLWC();
+		    log.info("[MoveInventory] LWC found");
 		}
 		
-		log.info("[MoveInventory] version [0.5.2] enabled");
+		log.info("[MoveInventory] version [0.5.3] enabled");
 	}
 
 	public void onDisable() {

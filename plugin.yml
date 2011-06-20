@@ -1,10 +1,9 @@
 name: MoveInventory
 main: me.babarix.MoveInventory.MoveInventory
-version: 0.5.2
+version: 0.5.3
 author: Babarix
 database: false
 description: Moves Inventory between Chest and Player.
-depend: [LWC]
 commands:
    mi:
       description: Moves Inventory between Chest and Player.

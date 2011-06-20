@@ -29,9 +29,9 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		Block tblock;
 		Chest chest1, chest2;
 		Protection protection;
-		byte[] ini = {0, 6, 27, 28, 37, 38, 39, 40, 50, 53, 55, 59, 63, 65, 66,
-				68, 69, 70, 72, 75, 76, 77, 78, 90, 92, 93, 94, 96 };
-		
+		byte[] ini = { 0, 6, 27, 28, 37, 38, 39, 40, 50, 53, 55, 59, 63, 65,
+				66, 68, 69, 70, 72, 75, 76, 77, 78, 90, 92, 93, 94, 96 };
+
 		HashSet<Byte> trans = new HashSet<Byte>();
 		for (byte b : ini) {
 			trans.add(b);
@@ -53,21 +53,34 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 				return true;
 			}
 
-			protection = plugin.lwc.findProtection(tblock);
-			if (plugin.lwc.canAccessProtection(player, protection) == false) {
-				player.sendMessage("This chest is locked by sombody else.");
-				return true;
+			if (plugin.lwc != null) {
+				protection = plugin.lwc.findProtection(tblock);
+				if (plugin.lwc.canAccessProtection(player, protection) == false) {
+					player.sendMessage("This chest is locked by sombody else.");
+					return true;
+				}
 			}
+
 			chest1 = (Chest) tblock.getState();
 			chest2 = GetDoubleChest(tblock);
 
 			if (args[0].equalsIgnoreCase("tc")) {
+				if (IsEmpty(player.getInventory())) {
+					player.sendMessage("Your inventory is empty.");
+				}
 				doTc(player, chest1, false);
 				if (chest2 != null) {
 					doTc(player, chest2, true);
 				}
 				return true;
 			} else if (args[0].equalsIgnoreCase("tp")) {
+				if (IsEmpty(chest1.getInventory())) {
+					if (chest2 == null) {
+						player.sendMessage("The chest is empty.");
+					} else if (IsEmpty(chest2.getInventory())) {
+						player.sendMessage("The chest is empty.");
+					}
+				}
 				doTp(player, chest1, false);
 				if (chest2 != null) {
 					doTp(player, chest2, true);
@@ -142,7 +155,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		ichest = chest.getInventory();
 		iplayer = player.getInventory();
 		if (ichest.firstEmpty() == -1 && fullFlag) {
-			player.sendMessage("The Target is alredy full.");
+			player.sendMessage("The Chest is alredy full.");
 			return true;
 		}
 		for (ItemStack item : iplayer.getContents()) {
@@ -170,9 +183,10 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 		ichest = chest.getInventory();
 		iplayer = player.getInventory();
 		if (iplayer.firstEmpty() == -1 && fullFlag) {
-			player.sendMessage("The Target is alredy full.");
+			player.sendMessage("Your Inventory is full.");
 			return true;
 		}
+
 		for (ItemStack item : ichest.getContents()) {
 			if (item != null && iplayer.firstEmpty() != -1) {
 
@@ -190,6 +204,19 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 
 		}
 		return true;
+	}
+
+	public boolean IsEmpty(Inventory in) {
+		boolean ret = false;
+
+		if (in == null) {
+			return true;
+		}
+		for (ItemStack item : in.getContents()) {
+			ret |= (item != null);
+		}
+
+		return !ret;
 
 	}
 

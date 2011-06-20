@@ -1,0 +1,21 @@
+TO-DO:
+-Permission Support
+-drop Inventory
+
+Cangelog:
+0.5.0
+-First Release
+
+0.5.1
+-LWC Support
+
+0.5.2
+-Doublechest Support
+
+0.5.3
+-LWC now optional
+-Added User Messages
+
+Credits:
+-Tomsik68 for his great Tutorial
+-ZephyrSigmar for his CommandExecutor explanation
