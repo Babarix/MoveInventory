@@ -67,6 +67,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("tc")) {
 				if (IsEmpty(player.getInventory())) {
 					player.sendMessage("Your inventory is empty.");
+					return true; 
 				}
 				doTc(player, chest1, false);
 				if (chest2 != null) {
@@ -77,8 +78,10 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 				if (IsEmpty(chest1.getInventory())) {
 					if (chest2 == null) {
 						player.sendMessage("The chest is empty.");
+						return true;
 					} else if (IsEmpty(chest2.getInventory())) {
 						player.sendMessage("The chest is empty.");
+						return true;
 					}
 				}
 				doTp(player, chest1, false);
