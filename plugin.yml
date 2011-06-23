@@ -7,5 +7,5 @@ description: Moves Inventory between Chest and Player.
 commands:
    mi:
       description: Moves Inventory between Chest and Player.
-      usage: /mi [tc|tp|v]
+      usage: /mi [tc|tp|ts|v]
 

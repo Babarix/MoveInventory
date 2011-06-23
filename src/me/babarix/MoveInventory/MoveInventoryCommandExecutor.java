@@ -1,7 +1,10 @@
 package me.babarix.MoveInventory;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Chest;
@@ -67,7 +70,7 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 			if (args[0].equalsIgnoreCase("tc")) {
 				if (IsEmpty(player.getInventory())) {
 					player.sendMessage("Your inventory is empty.");
-					return true; 
+					return true;
 				}
 				doTc(player, chest1, false);
 				if (chest2 != null) {
@@ -88,6 +91,12 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 				if (chest2 != null) {
 					doTp(player, chest2, true);
 				}
+				return true;
+			} else if (args[0].equalsIgnoreCase("ts")) {
+				if (chest2 != null) {
+					doTsC2(player, chest1, chest2);
+				} else {
+					doTsC1(player, chest1);}
 				return true;
 			} else if (args[0].equalsIgnoreCase("v")) {
 				toggleVerbose(player);
@@ -182,7 +191,6 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 	public boolean doTp(Player player, Chest chest, boolean fullFlag) {
 		Inventory ichest, iplayer;
 		HashMap<Integer, ItemStack> leftovers;
-
 		ichest = chest.getInventory();
 		iplayer = player.getInventory();
 		if (iplayer.firstEmpty() == -1 && fullFlag) {
@@ -207,6 +215,104 @@ public class MoveInventoryCommandExecutor implements CommandExecutor {
 
 		}
 		return true;
+	}
+
+	public boolean doTsC2(Player player, Chest c1, Chest c2) {
+		Inventory ic1, ic2, iplayer;
+		List<ItemStack> sptemp, sctemp;
+
+		ic1 = c1.getInventory();
+		ic2 = c2.getInventory();
+		sctemp = blockToList(ic1);
+		sctemp.addAll(blockToList(ic2));
+
+		iplayer = player.getInventory();
+		sptemp = blockToList(iplayer);
+
+		ic1.clear();
+		ic2.clear();
+		iplayer.clear();
+
+		for (ItemStack item : sptemp) {
+			if (ic1.firstEmpty() == -1) {
+				if (ic2.firstEmpty() == -1) {
+					sctemp.add(item);
+				} else {
+					ic2.addItem(item);
+				}
+
+			} else {
+				ic1.addItem(item);
+			}
+		}
+		sptemp.clear();
+
+		for (ItemStack item : sctemp) {
+			if (iplayer.firstEmpty() == -1) {
+				sptemp.add(item);
+			} else {
+				iplayer.addItem(item);
+			}
+		}
+
+		for (ItemStack item : sptemp) {
+			if (ic1.firstEmpty() == -1) {
+				ic2.addItem(item);
+			} else {
+				ic1.addItem(item);
+			}
+		}
+
+		return true;
+	}
+
+	public boolean doTsC1(Player player, Chest c) {
+		Inventory ic1, iplayer;
+		List<ItemStack> sptemp, sctemp;
+
+		ic1 = c.getInventory();
+		sctemp = blockToList(ic1);
+		
+		iplayer = player.getInventory();
+		sptemp = blockToList(iplayer);
+
+		ic1.clear();
+		iplayer.clear();
+
+		for (ItemStack item : sptemp) {
+			if (ic1.firstEmpty() == -1) {
+				sctemp.add(item);
+			} else {
+				ic1.addItem(item);
+			}
+		}
+		sptemp.clear();
+
+		for (ItemStack item : sctemp) {
+			if (iplayer.firstEmpty() == -1) {
+				sptemp.add(item);
+			} else {
+				iplayer.addItem(item);
+			}
+		}
+
+		for (ItemStack item : sptemp) {
+			ic1.addItem(item);
+		}
+
+		return true;
+	}
+
+	private List<ItemStack> blockToList(Inventory i) {
+		List<ItemStack> stemp = new ArrayList<ItemStack>();
+
+		for (ItemStack item : i.getContents()) {
+			if (item != null) {
+				stemp.add(item);
+			}
+		}
+
+		return stemp;
 	}
 
 	public boolean IsEmpty(Inventory in) {

@@ -42,7 +42,7 @@ public class MoveInventory extends JavaPlugin {
 		    log.info("[MoveInventory] LWC found");
 		}
 		
-		log.info("[MoveInventory] version [0.5.3] enabled");
+		log.info("[MoveInventory] version [0.5.4] enabled");
 	}
 
 	public void onDisable() {
