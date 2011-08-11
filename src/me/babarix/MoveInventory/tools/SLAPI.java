@@ -1,4 +1,4 @@
-package me.babarix.MoveInventory;
+package me.babarix.MoveInventory.tools;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
